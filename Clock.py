@@ -6,6 +6,7 @@ class Clock(Game):
     def __init__(self, size: int, radius: int):
         self.radius = radius
         self.center = int(size[0]/2), int(size[1]/2)
+        pygame.font.init()
         Game.__init__(self, "Clock", size)
         self.play()
 
@@ -21,14 +22,20 @@ class Clock(Game):
     def draw_face(self):
         pygame.draw.circle(self.screen, (255, 255, 255), self.center, self.radius, 2)
         for i in range(12):
-            theta = (i * 30) / 180 * np.pi
+            theta = (i * 30 - 90) / 180 * np.pi
             offset = (6 if i % 3 == 0 else 4)
             width = (2 if i % 3 == 0 else 1)
-            p1 = self.center[0], self.radius + offset + self.center[1]
-            p2 = self.center[0], self.radius - offset + self.center[1]
-            p1 = self.rotate_point(p1, theta, self.center)
-            p2 = self.rotate_point(p2, theta, self.center)
-            pygame.draw.line(self.screen, (255, 255, 255), p1, p2, width)
+            outer_tick_point = self.center[0], self.radius + offset + self.center[1]
+            inner_tick_point = self.center[0], self.radius - offset + self.center[1]
+            outer_tick_point = self.rotate_point(outer_tick_point, theta, self.center)
+            inner_tick_point = self.rotate_point(inner_tick_point, theta, self.center)
+            pygame.draw.line(self.screen, (255, 255, 255), outer_tick_point, inner_tick_point, width)
+            num_point = (
+                    np.cos(theta) * (self.radius - 25) + self.center[0] - 5,
+                    np.sin(theta) * (self.radius - 25) + self.center[1] - 10
+                    )
+            num = pygame.font.SysFont("Arial", 20).render(str(i + 1), True, (255, 255, 255))
+            self.screen.blit(num, num_point)
 
     @staticmethod
     def rotate_point(point: ('x', 'y'), theta: "radians", center: ('x', 'y')) -> ('x', 'y'):
