@@ -22,7 +22,7 @@ class Clock(Game):
     def draw_face(self):
         pygame.draw.circle(self.screen, (255, 255, 255), self.center, self.radius, 2)
         for i in range(12):
-            theta = (i * 30 - 90) / 180 * np.pi
+            theta = (i * 30 - 60) / 180 * np.pi
             offset = (6 if i % 3 == 0 else 4)
             width = (2 if i % 3 == 0 else 1)
             outer_tick_point = self.center[0], self.radius + offset + self.center[1]
