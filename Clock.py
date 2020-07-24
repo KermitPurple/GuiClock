@@ -1,5 +1,6 @@
 from Game import Game
 import numpy as np
+import datetime
 import pygame
 
 class Clock(Game):
@@ -14,6 +15,7 @@ class Clock(Game):
         pass
 
     def update(self):
+        self.date = datetime.datetime.today()
         self.draw_clock()
 
     def draw_clock(self):
@@ -31,10 +33,10 @@ class Clock(Game):
             inner_tick_point = self.rotate_point(inner_tick_point, theta, self.center)
             pygame.draw.line(self.screen, (255, 255, 255), outer_tick_point, inner_tick_point, width)
             num_point = (
-                    np.cos(theta) * (self.radius - 25) + self.center[0] - 5,
-                    np.sin(theta) * (self.radius - 25) + self.center[1] - 10
+                    np.cos(theta) * (self.radius - 20) + self.center[0] - 5,
+                    np.sin(theta) * (self.radius - 20) + self.center[1] - 10
                     )
-            num = pygame.font.SysFont("Arial", 20).render(str(i + 1), True, (255, 255, 255))
+            num = pygame.font.SysFont("agencyfb", 20).render(str(i + 1), True, (255, 255, 255))
             self.screen.blit(num, num_point)
 
     @staticmethod
