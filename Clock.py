@@ -46,30 +46,20 @@ class Clock(Game):
             self.draw_text(str(i if i != 0 else 12), num_point)
 
     def draw_datetime(self):
-        date_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%B %d, %Y"), True, (255, 255, 255))
-        date_rect = date_text.get_rect()
-        date_rect.center = self.center[1], 100
-        self.screen.blit(date_text, date_rect)
-        # self.screen.blit(date_text, (5, 0))
-        isodate_text = pygame.font.SysFont("agencyfb", 20).render(str(self.datetime.date()), True, (255, 255, 255))
-        isodate_rect = isodate_text.get_rect()
-        isodate_rect.center = self.center[1], 125
-        self.screen.blit(isodate_text, isodate_rect)
-        # self.screen.blit(isodate_text, (5, 25))
-        day_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%A"), True, (255, 255, 255))
-        day_rect = day_text.get_rect()
-        day_rect.center = self.center[1], 150
-        self.screen.blit(day_text, day_rect)
-        # self.screen.blit(day_text, (5, 50))
-        time_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%I:%M:%S %p"), True, (255, 255, 255))
-        time_rect = time_text.get_rect()
-        time_rect.center = self.center[1], 175
-        self.screen.blit(time_text, time_rect)
-        # self.screen.blit(time_text, (5, 75))
+        self.draw_text_centered(self.datetime.strftime("%B %d, %Y"), (self.center[1], 100))
+        self.draw_text_centered(str(self.datetime.date()), (self.center[1], 125))
+        self.draw_text_centered(self.datetime.strftime("%A"), (self.center[1], 150))
+        self.draw_text_centered(self.datetime.strftime("%I:%M:%S %p"), (self.center[1], 175))
 
     def draw_text(self, text: str, position: ('x', 'y'), color: ('r', 'g', 'b') = (255, 255, 255), font: str = "agencyfb", font_size: int = 20) -> None:
         text_surface = pygame.font.SysFont(font, font_size).render(text, True, color)
         self.screen.blit(text_surface, position)
+
+    def draw_text_centered(self, text: str, position: ('x', 'y'), color: ('r', 'g', 'b') = (255, 255, 255), font: str = "agencyfb", font_size: int = 20) -> None:
+        text_surface = pygame.font.SysFont(font, font_size).render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.center = position
+        self.screen.blit(text_surface, text_rect)
 
     @staticmethod
     def rotate_point(point: ('x', 'y'), theta: "radians", center: ('x', 'y')) -> ('x', 'y'):
