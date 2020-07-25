@@ -43,8 +43,7 @@ class Clock(Game):
                     np.cos(theta) * (self.radius - 20) + self.center[0] - 5,
                     np.sin(theta) * (self.radius - 20) + self.center[1] - 10
                     )
-            num = pygame.font.SysFont("agencyfb", 20).render(str(i if i != 0 else 12), True, (255, 255, 255))
-            self.screen.blit(num, num_point)
+            self.draw_text(str(i if i != 0 else 12), num_point)
 
     def draw_datetime(self):
         date_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%B %d, %Y"), True, (255, 255, 255))
@@ -67,6 +66,10 @@ class Clock(Game):
         time_rect.center = self.center[1], 175
         self.screen.blit(time_text, time_rect)
         # self.screen.blit(time_text, (5, 75))
+
+    def draw_text(self, text: str, position: ('x', 'y'), color: ('r', 'g', 'b') = (255, 255, 255), font: str = "agencyfb", font_size: int = 20) -> None:
+        text_surface = pygame.font.SysFont(font, font_size).render(text, True, color)
+        self.screen.blit(text_surface, position)
 
     @staticmethod
     def rotate_point(point: ('x', 'y'), theta: "radians", center: ('x', 'y')) -> ('x', 'y'):
