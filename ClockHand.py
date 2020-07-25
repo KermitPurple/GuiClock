@@ -22,7 +22,7 @@ class HourHand(ClockHand):
         ClockHand.__init__(self, outer_radius / 100 * 75, center, (255, 255, 255), 5)
 
     def draw(self, screen: "pygame surface object", hours: int) -> None:
-        theta = (hours - 3) / 6 * np.pi
+        theta = hours / 6 * np.pi - np.pi/2
         ClockHand.draw(self, screen, theta)
 
 class MinuteHand(ClockHand):
@@ -31,16 +31,7 @@ class MinuteHand(ClockHand):
         ClockHand.__init__(self, outer_radius / 100 * 85, center, (255, 255, 255), 3)
 
     def draw(self, screen: "pygame surface object", minutes: int) -> None:
-        theta = (minutes - 15) / 30 * np.pi
-        ClockHand.draw(self, screen, theta)
-
-class MinuteHand(ClockHand):
-
-    def __init__(self, outer_radius: int, center: ("x" , "y")):
-        ClockHand.__init__(self, outer_radius / 100 * 85, center, (255, 255, 255), 3)
-
-    def draw(self, screen: "pygame surface object", minutes: int) -> None:
-        theta = (minutes - 15) / 30 * np.pi
+        theta = minutes / 30 * np.pi - np.pi/2
         ClockHand.draw(self, screen, theta)
 
 class SecondHand(ClockHand):
@@ -49,5 +40,5 @@ class SecondHand(ClockHand):
         ClockHand.__init__(self, outer_radius / 100 * 95, center, (255, 0, 0), 1)
 
     def draw(self, screen: "pygame surface object", seconds: int) -> None:
-        theta = (seconds - 15) / 30 * np.pi
+        theta = seconds / 30 * np.pi - np.pi/2
         ClockHand.draw(self, screen, theta)
