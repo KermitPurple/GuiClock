@@ -46,10 +46,10 @@ class Clock(Game):
             self.draw_text(str(i if i != 0 else 12), num_point)
 
     def draw_datetime(self):
-        self.draw_text_centered(self.datetime.strftime("%B %d, %Y"), (self.center[1], 100))
-        self.draw_text_centered(str(self.datetime.date()), (self.center[1], 125))
-        self.draw_text_centered(self.datetime.strftime("%A"), (self.center[1], 150))
-        self.draw_text_centered(self.datetime.strftime("%I:%M:%S %p"), (self.center[1], 175))
+        self.draw_text_centered(self.datetime.strftime("%B %d, %Y"), (self.center[1], 150))
+        self.draw_text_centered(str(self.datetime.date()), (self.center[1], 175))
+        self.draw_text_centered(self.datetime.strftime("%A"), (self.center[1], 200))
+        self.draw_text_centered(self.datetime.strftime("%I:%M:%S %p"), (self.center[1], 225))
 
     def draw_text(self, text: str, position: ('x', 'y'), color: ('r', 'g', 'b') = (255, 255, 255), font: str = "agencyfb", font_size: int = 20) -> None:
         text_surface = pygame.font.SysFont(font, font_size).render(text, True, color)
