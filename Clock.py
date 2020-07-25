@@ -15,10 +15,11 @@ class Clock(Game):
         pass
 
     def update(self):
-        self.date = datetime.datetime.today()
+        self.datetime = datetime.datetime.today()
         self.draw_clock()
 
     def draw_clock(self):
+        self.draw_datetime()
         self.draw_face()
 
     def draw_face(self):
@@ -38,6 +39,16 @@ class Clock(Game):
                     )
             num = pygame.font.SysFont("agencyfb", 20).render(str(i + 1), True, (255, 255, 255))
             self.screen.blit(num, num_point)
+
+    def draw_datetime(self):
+        date_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%B %d, %Y"), True, (255, 255, 255))
+        self.screen.blit(date_text, (5, 0))
+        isodate_text = pygame.font.SysFont("agencyfb", 20).render(str(self.datetime.date()), True, (255, 255, 255))
+        self.screen.blit(isodate_text, (5, 25))
+        day_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%A"), True, (255, 255, 255))
+        self.screen.blit(day_text, (5, 50))
+        time_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%I:%M:%S %p"), True, (255, 255, 255))
+        self.screen.blit(time_text, (5, 75))
 
     @staticmethod
     def rotate_point(point: ('x', 'y'), theta: "radians", center: ('x', 'y')) -> ('x', 'y'):
