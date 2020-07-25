@@ -1,4 +1,5 @@
 from Game import Game
+from ClockHand import HourHand
 import numpy as np
 import datetime
 import pygame
@@ -21,6 +22,7 @@ class Clock(Game):
     def draw_clock(self):
         self.draw_datetime()
         self.draw_face()
+        HourHand(self.radius, self.center).draw(self.screen, self.datetime.hour)
 
     def draw_face(self):
         pygame.draw.circle(self.screen, (255, 255, 255), self.center, self.radius, 2)
