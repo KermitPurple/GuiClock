@@ -8,12 +8,14 @@ class Clock(Game):
     def __init__(self, size: int, radius: int):
         self.radius = radius
         self.center = int(size[0]/2), int(size[1]/2)
+        self.smooth_seconds = True
         pygame.font.init()
         Game.__init__(self, "Clock", size)
         self.play()
 
     def kbin(self, code: str, key: "pygame constant") -> None:
-        pass
+        if code == 's':
+            self.smooth_seconds = not self.smooth_seconds
 
     def update(self):
         self.datetime = datetime.datetime.today()
@@ -22,8 +24,8 @@ class Clock(Game):
     def draw_clock(self):
         self.draw_datetime()
         self.draw_face()
-        ClockHand.SecondHand(self.radius, self.center).draw(self.screen, self.datetime.second)
-        ClockHand.MinuteHand(self.radius, self.center).draw(self.screen, self.datetime.minute)
+        ClockHand.SecondHand(self.radius, self.center).draw(self.screen, self.datetime.second, self.datetime.microsecond, self.smooth_seconds)
+        ClockHand.MinuteHand(self.radius, self.center).draw(self.screen, self.datetime.minute, self.datetime.second)
         ClockHand.HourHand(self.radius, self.center).draw(self.screen, self.datetime.hour, self.datetime.minute, self.datetime.second)
 
     def draw_face(self):
