@@ -22,11 +22,11 @@ class Clock(Game):
         self.draw_clock()
 
     def draw_clock(self):
-        self.draw_datetime()
         self.draw_face()
         ClockHand.SecondHand(self.radius, self.center).draw(self.screen, self.datetime.second, self.datetime.microsecond, self.smooth_seconds)
         ClockHand.MinuteHand(self.radius, self.center).draw(self.screen, self.datetime.minute, self.datetime.second)
         ClockHand.HourHand(self.radius, self.center).draw(self.screen, self.datetime.hour, self.datetime.minute, self.datetime.second)
+        self.draw_datetime()
 
     def draw_face(self):
         pygame.draw.circle(self.screen, (255, 255, 255), self.center, self.radius, 2)
@@ -46,10 +46,10 @@ class Clock(Game):
             self.draw_text(str(i if i != 0 else 12), num_point)
 
     def draw_datetime(self):
-        self.draw_text_centered(self.datetime.strftime("%B %d, %Y"), (self.center[1], 150))
-        self.draw_text_centered(str(self.datetime.date()), (self.center[1], 175))
-        self.draw_text_centered(self.datetime.strftime("%A"), (self.center[1], 200))
-        self.draw_text_centered(self.datetime.strftime("%I:%M:%S %p"), (self.center[1], 225))
+        self.draw_text_centered(self.datetime.strftime("%B %d, %Y"), (self.center[1], 150), (155, 155, 155))
+        self.draw_text_centered(str(self.datetime.date()), (self.center[1], 175), (155, 155, 155))
+        self.draw_text_centered(self.datetime.strftime("%A"), (self.center[1], 200), (155, 155, 155))
+        self.draw_text_centered(self.datetime.strftime("%I:%M:%S %p"), (self.center[1], 225), (155, 155, 155))
 
     def draw_text(self, text: str, position: ('x', 'y'), color: ('r', 'g', 'b') = (255, 255, 255), font: str = "agencyfb", font_size: int = 20) -> None:
         text_surface = pygame.font.SysFont(font, font_size).render(text, True, color)
