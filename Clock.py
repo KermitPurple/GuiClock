@@ -48,13 +48,25 @@ class Clock(Game):
 
     def draw_datetime(self):
         date_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%B %d, %Y"), True, (255, 255, 255))
-        self.screen.blit(date_text, (5, 0))
+        date_rect = date_text.get_rect()
+        date_rect.center = self.center[1], 100
+        self.screen.blit(date_text, date_rect)
+        # self.screen.blit(date_text, (5, 0))
         isodate_text = pygame.font.SysFont("agencyfb", 20).render(str(self.datetime.date()), True, (255, 255, 255))
-        self.screen.blit(isodate_text, (5, 25))
+        isodate_rect = isodate_text.get_rect()
+        isodate_rect.center = self.center[1], 125
+        self.screen.blit(isodate_text, isodate_rect)
+        # self.screen.blit(isodate_text, (5, 25))
         day_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%A"), True, (255, 255, 255))
-        self.screen.blit(day_text, (5, 50))
+        day_rect = day_text.get_rect()
+        day_rect.center = self.center[1], 150
+        self.screen.blit(day_text, day_rect)
+        # self.screen.blit(day_text, (5, 50))
         time_text = pygame.font.SysFont("agencyfb", 20).render(self.datetime.strftime("%I:%M:%S %p"), True, (255, 255, 255))
-        self.screen.blit(time_text, (5, 75))
+        time_rect = time_text.get_rect()
+        time_rect.center = self.center[1], 175
+        self.screen.blit(time_text, time_rect)
+        # self.screen.blit(time_text, (5, 75))
 
     @staticmethod
     def rotate_point(point: ('x', 'y'), theta: "radians", center: ('x', 'y')) -> ('x', 'y'):
