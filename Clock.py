@@ -30,20 +30,29 @@ class Clock(Game):
 
     def draw_face(self):
         pygame.draw.circle(self.screen, (255, 255, 255), self.center, self.radius, 2)
-        for i in range(12):
-            theta = (i * 30 - 90) / 180 * np.pi
-            offset = (6 if i % 3 == 0 else 4)
-            width = (4 if i % 3 == 0 else 1)
+        num = 0
+        for i in range(60):
+            theta = (i * 6 - 90) / 180 * np.pi
+            if i % 5 == 0:
+                num_point = (
+                        np.cos(theta) * (self.radius - 20) + self.center[0] - 5,
+                        np.sin(theta) * (self.radius - 20) + self.center[1] - 10
+                        )
+                self.draw_text(str(num if num != 0 else 12), num_point)
+                num += 1
+                offset = 6
+                width = 4
+                if i % 15 == 0:
+                    offset = 8
+                    width = 6
+            else:
+                offset = 3
+                width = 1
             outer_tick_point = self.center[0], self.radius + offset + self.center[1]
             inner_tick_point = self.center[0], self.radius - offset + self.center[1]
             outer_tick_point = self.rotate_point(outer_tick_point, theta, self.center)
             inner_tick_point = self.rotate_point(inner_tick_point, theta, self.center)
             pygame.draw.line(self.screen, (255, 255, 255), outer_tick_point, inner_tick_point, width)
-            num_point = (
-                    np.cos(theta) * (self.radius - 20) + self.center[0] - 5,
-                    np.sin(theta) * (self.radius - 20) + self.center[1] - 10
-                    )
-            self.draw_text(str(i if i != 0 else 12), num_point)
 
     def draw_datetime(self):
         self.draw_text_centered(self.datetime.strftime("%B %d, %Y"), (self.center[0], 150), (155, 155, 155))
